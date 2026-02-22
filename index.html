@@ -1,228 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DB-GOATS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DON BOSCO G.O.A.T.S</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    :root { --bosco: #ff0055; --savio: #00d4ff; --ruva: #ffcc00; --thomas: #00ff88; --neon: #fbff00; }
+    body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #000; background-size: cover; background-position: center; background-attachment: fixed; color: white; -webkit-font-smoothing: antialiased; }
+    .glass { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 15px; margin: 10px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.8); }
+    .header { display: flex; flex-direction: column; align-items: center; padding: 15px; border-bottom: 2px solid var(--savio); background: rgba(0,0,0,0.9); position: sticky; top: 0; z-index: 1000; }
+    .logo-img { height: 50px; } .founder-img { height: 60px; width: 60px; border-radius: 50%; border: 2px solid var(--neon); object-fit: cover; }
+    input, select { width: 100%; padding: 14px; margin: 10px 0; background: #111; color: white; border: 1px solid #333; border-radius: 12px; font-size: 16px; transition: border 0.3s; }
+    input:focus { border-color: var(--savio); outline: none; }
+    .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+    .house-btn { padding: 25px 10px; border-radius: 15px; border: none; font-weight: 900; color: #000; cursor: pointer; font-size: 16px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.3); active { transform: scale(0.95); } }
+    .h-bosco { background: var(--bosco); } .h-savio { background: var(--savio); } .h-ruva { background: var(--ruva); } .h-thomas { background: var(--thomas); }
+    .btn-main { width: 100%; padding: 15px; border-radius: 12px; background: var(--neon); color: black; font-weight: 900; border: none; cursor: pointer; font-size: 16px; }
+    .type-btn { flex: 1; padding: 15px; border-radius: 12px; font-weight: 900; cursor: pointer; border: 3px solid transparent; font-size: 18px; }
+    .stat-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 12px; border-left: 5px solid var(--neon); }
+    .rank-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .btn-cert { background: transparent; border: 1px solid var(--neon); color: var(--neon); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 15px 30px; border-radius: 50px; display: none; z-index: 5000; font-weight: bold; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+    #reader { width: 100%; border-radius: 15px; overflow:hidden; border: 2px solid var(--neon); display: none; margin: 10px 0; }
     
-    <link rel="apple-touch-icon" href="https://drive.google.com/uc?export=view&id=18pAKHffTYVmymmTmWgJS0S4sAE5XlMfQ">
-    <link rel="icon" type="image/png" href="https://drive.google.com/uc?export=view&id=18pAKHffTYVmymmTmWgJS0S4sAE5XlMfQ">
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22DB%20GOATS%22,%22display%22:%22standalone%22,%22background_color%22:%22%23000000%22,%22icons%22:[{%22src%22:%22https://drive.google.com/uc?export=view&id=18pAKHffTYVmymmTmWgJS0S4sAE5XlMfQ%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://unpkg.com/html5-qrcode"></script>
-
-    <style>
-        :root { --bosco: #ff0055; --savio: #00d4ff; --ruva: #ffcc00; --thomas: #00ff88; --neon: #fbff00; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #000 center fixed no-repeat; background-size: cover; color: white; min-height: 100vh; }
-        .glass { background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); border-radius: 20px; padding: 15px; margin: 10px; border: 1px solid rgba(255,255,255,0.1); }
-        .header { display: flex; flex-direction: column; align-items: center; padding: 15px; border-bottom: 2px solid var(--neon); background: rgba(0,0,0,0.95); position: sticky; top:0; z-index:100; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 12px; font-size: 16px; }
-        .btn-main { width: 100%; padding: 16px; border-radius: 12px; background: var(--neon); color: black; font-weight: 900; border: none; cursor: pointer; }
-        .session-box { flex: 1; padding: 8px; border-radius: 8px; text-align: center; color: black; font-weight: 900; font-size: 11px; }
-        .stat-card { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; margin: 10px 0; border-left: 5px solid var(--neon); }
-        #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 12px 25px; border-radius: 50px; display: none; z-index: 1000; font-weight: bold; }
-        #cert-template { width: 800px; height: 560px; background: white; color: black; position: absolute; left: -9999px; padding: 40px; text-align: center; border: 15px double #8e6d10; }
-    </style>
+    /* PDF Template - Hidden from Screen */
+    #cert-template { width: 1122px; height: 794px; background: white; color: black; position: absolute; left: -9999px; padding: 50px; text-align: center; border: 25px double #8e6d10; box-sizing: border-box; }
+  </style>
 </head>
-<body>
-    <div id="toast"></div>
+<body onload="initApp()">
+  <div id="toast"></div>
 
-    <div class="header">
-        <div style="display:flex; gap:15px;"><img id="m-logo" height="45"><img id="m-founder" height="45" style="border-radius:50%; border:2px solid var(--neon);"></div>
-        <div style="font-weight:900; font-size:13px; text-align:center; margin-top:5px;">DON BOSCO POLYTECHNIC COLLEGE<br><span style="color:var(--neon); font-size:10px;">G.O.A.T.S LEADERBOARD</span></div>
+  <div class="header">
+    <div style="display:flex; gap:20px;"><img id="main-logo" class="logo-img"><img id="main-founder" class="founder-img"></div>
+    <div style="font-weight:900; font-size:16px; margin-top:8px; text-align:center;">DON BOSCO POLYTECHNIC COLLEGE<br><span style="color:var(--neon); font-size:12px;">G.O.A.T.S MANAGEMENT</span></div>
+  </div>
+
+  <div id="login-view" class="glass" style="max-width:400px; margin: 50px auto;">
+    <h3 style="text-align:center; color:var(--neon);">SECURE LOGIN</h3>
+    <select id="user-select"><option disabled selected>Connecting to Server...</option></select>
+    <input type="password" id="pass-input" placeholder="Enter Access Password">
+    <button class="btn-main" onclick="login()">ENTER DASHBOARD</button>
+  </div>
+
+  <div id="teacher-view" style="display:none; max-width:600px; margin: auto;" class="glass">
+    <div style="text-align:center; color:var(--neon); font-weight:900; font-size:18px; margin-bottom:15px;">DEPT: <span id="active-dept-label">---</span></div>
+    
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:20px;">
+      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--bosco)">BOSCO<br><b id="s-Bosco" style="font-size:18px;">0</b></div>
+      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--savio)">SAVIO<br><b id="s-Savio" style="font-size:18px;">0</b></div>
+      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--ruva)">RUVA<br><b id="s-Ruva" style="font-size:18px;">0</b></div>
+      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--thomas)">THOMAS<br><b id="s-Thomas" style="font-size:18px;">0</b></div>
     </div>
 
-    <div id="login-view" class="glass" style="max-width:320px; margin: 40px auto;">
-        <select id="user-select"><option>Connecting...</option></select>
-        <input type="password" id="pass-input" placeholder="Password">
-        <button class="btn-main" onclick="login()">LOGIN</button>
+    <div style="display:flex; gap:15px; margin-bottom:20px;">
+      <button class="type-btn" id="btn-neg" onclick="setMode('Negative')" style="background:#ff416c; color:white;">DEDUCT -5</button>
+      <button class="type-btn" id="btn-pos" onclick="setMode('Positive')" style="background:#00b09b; color:white; border-color:var(--neon);">AWARD +10</button>
     </div>
 
-    <div id="teacher-view" style="display:none;" class="glass">
-        <div style="display:flex; gap:5px; margin-bottom:15px;">
-            <div class="session-box" style="background:var(--bosco)">B: <span id="s-bosco">0</span></div>
-            <div class="session-box" style="background:var(--savio)">S: <span id="s-savio">0</span></div>
-            <div class="session-box" style="background:var(--ruva)">R: <span id="s-ruva">0</span></div>
-            <div class="session-box" style="background:var(--thomas)">T: <span id="s-thomas">0</span></div>
+    <div class="house-grid">
+      <button class="house-btn h-bosco" onclick="processEntry('HOUSE_WINNER', 'Bosco')">BOSCO</button>
+      <button class="house-btn h-savio" onclick="processEntry('HOUSE_WINNER', 'Savio')">SAVIO</button>
+      <button class="house-btn h-ruva" onclick="processEntry('HOUSE_WINNER', 'Ruva')">RUVA</button>
+      <button class="house-btn h-thomas" onclick="processEntry('HOUSE_WINNER', 'Thomas')">THOMAS</button>
+    </div>
+
+    <hr style="border:0.5px solid #333; margin:20px 0;">
+    
+    <button id="cam-btn" onclick="toggleCamera()" style="background:var(--neon); border:none; padding:18px; border-radius:50px; font-weight:900; width:100%; margin-bottom:15px; font-size:18px;">📷 SCAN STUDENT ID</button>
+    <div id="reader"></div>
+
+    <input type="text" id="m-student" placeholder="Or Type Student Name">
+    <select id="m-house">
+      <option disabled selected>Assign House</option>
+      <option>Bosco</option><option>Savio</option><option>Ruva</option><option>Thomas</option>
+    </select>
+    <button onclick="submitManual()" style="width:100%; background:#333; color:white; border:none; padding:12px; border-radius:10px; margin-bottom:20px;">SUBMIT MANUAL ENTRY</button>
+
+    <input type="text" id="t-name" placeholder="Confirm Teacher Name">
+    <select id="p-cat">
+      <option>Quiz/Program</option>
+      <option>YouTube Contribution</option>
+      <option>Assembly Contribution</option>
+      <option>Extra Activities</option>
+      <option>Discipline</option>
+      <option>Academics</option>
+      <option>Sports</option>
+    </select>
+    <button class="btn-main" style="background:transparent; color:white; border:1px solid #444; margin-top:20px;" onclick="location.reload()">LOGOUT</button>
+  </div>
+
+  <div id="admin-view" style="display:none; max-width:800px; margin: auto;" class="glass">
+    <div id="admin-content"></div>
+    <button class="btn-main" onclick="location.reload()" style="margin-top:20px;">LOGOUT ADMIN</button>
+  </div>
+
+  <div id="cert-template">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <img id="cert-logo" style="height:120px; width:auto;">
+      <img id="cert-founder" style="height:120px; width:120px; border-radius:50%; border:5px solid #8e6d10;">
+    </div>
+    <h1 style="font-size:45px; margin:30px 0 0 0; color:#1a1a1a;">DON BOSCO POLYTECHNIC COLLEGE</h1>
+    <h2 style="font-family:'Great Vibes', cursive; font-size:75px; color:#8e6d10; margin:15px 0;">Certificate of Achievement</h2>
+    <p style="font-size:24px; margin:20px 0;">This is to certify that</p>
+    <h2 id="pdf-name" style="font-size:55px; text-decoration:underline; margin:10px 0; font-weight:900;"></h2>
+    <p style="font-size:24px;">has been recognized for excellence as</p>
+    <h3 id="pdf-award" style="font-size:35px; color:#8e6d10; margin:10px 0;"></h3>
+    <div class="sig-box" style="display:flex; justify-content:space-between; margin-top:80px; padding: 0 100px;">
+      <div style="border-top:3px solid #333; width:220px; padding-top:10px; font-size:18px;"><b>AUTHORIZED SIGN</b></div>
+      <div style="border-top:3px solid #333; width:220px; padding-top:10px; font-size:18px;"><b>PRINCIPAL</b></div>
+    </div>
+  </div>
+
+  <script>
+    // CRITICAL: Replace with your actual Web App URL
+    const API_URL = "https://script.google.com/macros/s/AKfycbzmHoXJkjpqi-7p3rod_nNpf7zKEPtiCBLvZlLXfjIjTpW2owIeX7gCFud0ybUi7i3_/exec"; 
+
+    let html5QrCode = null, scanActive = false;
+    let scores = { Bosco:0, Savio:0, Ruva:0, Thomas:0 }, currentMode = "Positive", currentDept = "";
+
+    async function callAPI(data) {
+      try {
+        const response = await fetch(API_URL, { method: "POST", body: JSON.stringify(data) });
+        return await response.json();
+      } catch (e) { console.error("API Error", e); return {success: false}; }
+    }
+
+    async function initApp() {
+      const imgs = await callAPI({action: "getImages"});
+      if(imgs.thumbBg) document.body.style.backgroundImage = `url('${imgs.thumbBg}')`;
+      document.getElementById('main-logo').src = imgs.thumbLogo;
+      document.getElementById('main-founder').src = imgs.thumbFounder;
+      document.getElementById('cert-logo').src = imgs.fullLogo;
+      document.getElementById('cert-founder').src = imgs.fullFounder;
+
+      const list = await callAPI({action: "getDeptList"});
+      const s = document.getElementById('user-select'); 
+      s.innerHTML = '<option disabled selected>Select Department</option>';
+      if(Array.isArray(list)) list.forEach(d => s.add(new Option(d, d)));
+    }
+
+    function setMode(m) {
+      currentMode = m;
+      document.getElementById('btn-pos').style.border = (m === 'Positive') ? '3px solid var(--neon)' : '3px solid transparent';
+      document.getElementById('btn-neg').style.border = (m === 'Negative') ? '3px solid var(--neon)' : '3px solid transparent';
+    }
+
+    async function login() {
+      const u = document.getElementById('user-select').value, p = document.getElementById('pass-input').value;
+      if(!u || !p) return alert("Please select dept and enter password");
+      const r = await callAPI({action: "authenticate", user: u, pass: p});
+      if(r.success) {
+        document.getElementById('login-view').style.display='none';
+        if(r.role === 'Admin') { 
+          document.getElementById('admin-view').style.display='block'; 
+          loadAdmin(); 
+        } else { 
+          document.getElementById('teacher-view').style.display='block'; 
+          currentDept = r.dept;
+          document.getElementById('active-dept-label').innerText = r.dept;
+          setMode('Positive');
+        }
+      } else alert("Invalid Credentials");
+    }
+
+    async function toggleCamera() {
+      const rd = document.getElementById('reader');
+      const btn = document.getElementById('cam-btn');
+      if (!scanActive) {
+        rd.style.display = 'block';
+        btn.innerText = 'STOP CAMERA';
+        try {
+          html5QrCode = new Html5Qrcode("reader");
+          const config = { fps: 15, qrbox: { width: 250, height: 250 } };
+          await html5QrCode.start({ facingMode: "environment" }, config, (t) => {
+            const parts = t.split('|'); // Student Name|Dept|House
+            if(parts.length >= 3) { 
+              processEntry(parts[0].trim(), parts[2].trim(), parts[1].trim()); 
+              stopCam(); 
+            } else { alert("Invalid QR Format (Name|Dept|House)"); stopCam(); }
+          });
+          scanActive = true;
+        } catch (e) { alert("Camera Error: Check Permissions"); stopCam(); }
+      } else { stopCam(); }
+    }
+
+    async function stopCam() {
+      if (html5QrCode && html5QrCode.isScanning) { await html5QrCode.stop(); }
+      document.getElementById('reader').style.display = 'none';
+      document.getElementById('cam-btn').innerText = '📷 SCAN STUDENT ID';
+      scanActive = false;
+    }
+
+    function submitManual() {
+      const n = document.getElementById('m-student').value, h = document.getElementById('m-house').value;
+      if(!n || h === "Assign House") return alert("Enter Name and Select House");
+      processEntry(n, h); 
+      document.getElementById('m-student').value = "";
+    }
+
+    async function processEntry(sName, house, sDept = null) {
+      const tName = document.getElementById('t-name').value; 
+      if(!tName) return alert("Enter Teacher Name First!");
+      
+      const pts = (currentMode === 'Positive') ? 10 : -5;
+      const h = house.charAt(0).toUpperCase() + house.slice(1).toLowerCase();
+
+      if(scores.hasOwnProperty(h)) {
+        scores[h] += pts; 
+        document.getElementById('s-' + h).innerText = scores[h];
+        showToast(`Success: ${sName} (${pts} pts)`);
+        if(pts > 0) confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
+        
+        await callAPI({
+          action: "submitPoint", 
+          data: { dept: currentDept, studentDept: sDept, studentName: sName, teacherName: tName, category: document.getElementById('p-cat').value, house: h, type: currentMode }
+        });
+      } else { alert("Error: House '" + house + "' not recognized"); }
+    }
+
+    async function loadAdmin() {
+      const d = await callAPI({action: "getAdminData"});
+      let h = `<h2 style="color:var(--neon); text-align:center;">ADMIN DASHBOARD</h2>
+        <div class="stat-card">
+          <p style="color:var(--savio); font-size:12px; margin:0;">ACTIVE DEPARTMENTS</p>
+          <p style="margin:5px 0;">${d.activeDepartments ? d.activeDepartments.join(', ') : 'No data yet'}</p>
+        </div>
+        
+        <h4 style="color:var(--neon);">WEEKLY HOUSE RANKINGS</h4>
+        <div class="stat-card">
+          ${d.weeklyHouses ? d.weeklyHouses.map((hs, i) => `
+            <div class="rank-row">
+              <span>${i+1}. ${hs[0]}</span>
+              <b style="color:${i==0?'var(--neon)':'white'}">${hs[1]} PTS</b>
+            </div>`).join('') : 'No points this week'}
         </div>
 
-        <div style="display:flex; gap:10px; margin-bottom:15px;">
-            <button onclick="setM('Negative')" id="b-neg" style="flex:1; background:#ff416c; padding:15px; border-radius:12px; border:none; color:white; font-weight:900;">-5 PTS</button>
-            <button onclick="setM('Positive')" id="b-pos" style="flex:1; background:#00b09b; padding:15px; border-radius:12px; border:3px solid var(--neon); color:white; font-weight:900;">+10 PTS</button>
+        <h4 style="color:var(--savio);">WEEKLY DEPT TOPPERS</h4>
+        <div class="stat-card">
+          ${d.weeklyWinners ? d.weeklyWinners.map(w => `
+            <div style="margin-bottom:10px;">
+              <p style="color:var(--neon); font-size:12px; margin:0;">${w.dept}</p>
+              ${w.toppers.map(t => `
+                <div class="rank-row">
+                  <span>${t[0]}</span>
+                  <button class="btn-cert" onclick="genPDF('${t[0]}','Weekly Topper (${w.dept})')">GENERATE CERT</button>
+                </div>`).join('')}
+            </div>`).join('') : 'Calculating toppers...'}
         </div>
 
-        <button class="btn-main" onclick="toggleCam()" id="cam-btn">SCAN STUDENT QR</button>
-        <div id="reader" style="display:none; margin:15px 0; border-radius:15px; overflow:hidden; border:2px solid var(--neon);"></div>
+        <h4 style="color:var(--ruva);">STAR TEACHERS</h4>
+        <div class="stat-card">
+          ${d.starTeachers ? d.starTeachers.map(t => `
+            <div class="rank-row">
+              <span>${t[0]}</span>
+              <button class="btn-cert" onclick="genPDF('${t[0]}','Star Teacher of the Week')">CERT</button>
+            </div>`).join('') : 'No teacher activity'}
+        </div>`;
+      document.getElementById('admin-content').innerHTML = h;
+    }
 
-        <div style="margin-top:20px; border-top:1px solid #333; padding-top:15px;">
-            <input type="text" id="m-name" placeholder="Manual Student Name">
-            <select id="m-dept"><option disabled selected>Select Dept</option></select>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                <button onclick="mSub('Bosco')" style="background:var(--bosco); border:none; padding:12px; border-radius:8px; font-weight:900;">BOSCO</button>
-                <button onclick="mSub('Savio')" style="background:var(--savio); border:none; padding:12px; border-radius:8px; font-weight:900;">SAVIO</button>
-                <button onclick="mSub('Ruva')" style="background:var(--ruva); border:none; padding:12px; border-radius:8px; font-weight:900;">RUVA</button>
-                <button onclick="mSub('Thomas')" style="background:var(--thomas); border:none; padding:12px; border-radius:8px; font-weight:900;">THOMAS</button>
-            </div>
-        </div>
+    async function genPDF(name, award) {
+      showToast("Generating High-Res Certificate...");
+      document.getElementById('pdf-name').innerText = name.toUpperCase(); 
+      document.getElementById('pdf-award').innerText = award;
+      
+      const template = document.getElementById('cert-template');
+      const canvas = await html2canvas(template, { 
+        scale: 2, 
+        useCORS: true, 
+        allowTaint: false,
+        logging: false
+      });
+      
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('l', 'mm', 'a4');
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
+      pdf.save(`Certificate_${name.replace(/\s+/g, '_')}.pdf`);
+    }
 
-        <input type="text" id="t-name" placeholder="Teacher Name (Req)" style="margin-top:20px;">
-        <select id="p-cat">
-            <option>YouTube Contribution</option>
-            <option>Discipline</option>
-            <option>Sports/Cultural</option>
-            <option>Academics</option>
-        </select>
-        <button class="btn-main" style="background:#333; color:white; margin-top:20px;" onclick="location.reload()">LOGOUT</button>
-    </div>
-
-    <div id="admin-view" style="display:none;" class="glass">
-        <div id="admin-data"></div>
-        <button class="btn-main" onclick="location.reload()">LOGOUT</button>
-    </div>
-
-    <div id="cert-template">
-        <div style="display:flex; justify-content:space-between;"><img id="c-logo" height="65"><img id="c-founder" height="65" style="border-radius:50%"></div>
-        <h2 style="font-family:'Great Vibes'; font-size:45px; color:#8e6d10; margin:20px 0;">Certificate of Achievement</h2>
-        <p style="font-size:18px;">Awarded to</p>
-        <h1 id="pdf-n" style="font-size:38px; text-decoration:underline; margin:10px 0;"></h1>
-        <p id="pdf-a" style="font-size:22px; font-weight:bold; color:#8e6d10;"></p>
-        <div style="margin-top:60px; display:flex; justify-content:space-around; font-weight:bold;">
-            <div style="border-top:2px solid #000; width:180px; padding-top:5px;">HOD</div>
-            <div style="border-top:2px solid #000; width:180px; padding-top:5px;">PRINCIPAL</div>
-        </div>
-    </div>
-
-    <script>
-        const URL = "https://script.google.com/macros/s/AKfycbwjBM4BsNqA_P5sVSWVOMDf7sV0dOZqDUpeBfpHoknhJ9Uk8p1IShezpk1TaOtUPXcE/exec";
-        let sessionScore = { Bosco:0, Savio:0, Ruva:0, Thomas:0 }, mode = "Positive", html5QrCode = null;
-
-        async function api(p, b = null) {
-            const u = new window.URL(URL);
-            if(p) Object.keys(p).forEach(k => u.searchParams.append(k, p[k]));
-            const r = await fetch(u, { method: b ? 'POST' : 'GET', body: b ? JSON.stringify(b) : null });
-            return await r.json();
-        }
-
-        window.onload = async () => {
-            const img = await api({action:'getImages'});
-            document.body.style.backgroundImage = `url('${img.bg}')`;
-            document.getElementById('m-logo').src = img.logo;
-            document.getElementById('m-founder').src = img.founder;
-            document.getElementById('c-logo').src = img.logo;
-            document.getElementById('c-founder').src = img.founder;
-
-            const depts = await api({action:'getDeptList'});
-            const s = document.getElementById('user-select'), md = document.getElementById('m-dept');
-            s.innerHTML = '<option disabled selected>Select User</option>';
-            depts.forEach(x => { s.add(new Option(x, x)); md.add(new Option(x, x)); });
-        };
-
-        async function login() {
-            const u = document.getElementById('user-select').value, p = document.getElementById('pass-input').value;
-            const r = await api({}, {action:'authenticate', user:u, pass:p});
-            if (r.success) {
-                document.getElementById('login-view').style.display = 'none';
-                if (r.role === 'Admin') { document.getElementById('admin-view').style.display='block'; loadAdmin(); }
-                else { document.getElementById('teacher-view').style.display='block'; }
-            } else alert("Invalid Password");
-        }
-
-        function setM(m) {
-            mode = m;
-            document.getElementById('b-pos').style.border = m === 'Positive' ? '3px solid var(--neon)' : 'none';
-            document.getElementById('b-neg').style.border = m === 'Negative' ? '3px solid var(--neon)' : 'none';
-        }
-
-        async function process(n, d, h) {
-            const t = document.getElementById('t-name').value;
-            if(!t) return alert("Teacher Name required!");
-            const pts = mode === 'Positive' ? 10 : -5;
-            sessionScore[h] += pts;
-            document.getElementById('s-'+h.toLowerCase()).innerText = sessionScore[h];
-            if(pts > 0) confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            showToast("Syncing...");
-            api({}, {action:'submitPoint', payload:{dept:d, studentName:n, house:h, teacherName:t, category:document.getElementById('p-cat').value, type:mode}})
-            .then(() => showToast("Saved to Cloud"));
-        }
-
-        async function mSub(h) {
-            const n = document.getElementById('m-name').value, d = document.getElementById('m-dept').value;
-            if(!n || !d) return alert("Fill Name & Dept");
-            await process(n, d, h);
-            document.getElementById('m-name').value = "";
-        }
-
-        async function toggleCam() {
-            if(!html5QrCode) {
-                document.getElementById('reader').style.display = 'block';
-                html5QrCode = new Html5Qrcode("reader");
-                await html5QrCode.start({facingMode:"environment"}, {fps:20, qrbox:250}, (t) => {
-                    const p = t.split('|'); 
-                    if(p.length >= 3) { process(p[0], p[1], p[2]); stopC(); }
-                });
-                document.getElementById('cam-btn').innerText = "STOP SCANNER";
-            } else stopC();
-        }
-
-        function stopC() {
-            if(html5QrCode) { html5QrCode.stop(); html5QrCode = null; }
-            document.getElementById('reader').style.display = 'none';
-            document.getElementById('cam-btn').innerText = "SCAN STUDENT QR";
-        }
-
-        async function loadAdmin() {
-            const d = await api({action:'getAdminData'});
-            let html = `<h2 style="color:var(--neon); text-align:center;">WEEKLY HOUSE RANKING</h2>`;
-            const labels = ["🏆 WINNER", "🥈 RUNNER", "🥉 2nd RUNNER", "🎗️ 4th"];
-            d.weeklyHouseRank.forEach((r, i) => html += `<div class="stat-card" style="border-left-color:var(--savio)"><b>${labels[i]}:</b> ${r[0]} (${r[1]} pts)</div>`);
-            
-            html += `<h3 style="color:var(--neon); margin-top:25px;">WEEKLY ACTIVE DEPTS</h3>`;
-            for (let dept in d.weeklyToppers) {
-                html += `<div class="glass"><b>${dept}</b>`;
-                d.weeklyToppers[dept].forEach(s => {
-                    html += `<div style="display:flex; justify-content:space-between; margin-top:8px;">
-                        <span>${s[0]} (${s[1]})</span>
-                        <button style="color:var(--neon); background:none; border:1px solid; border-radius:4px; padding:2px 5px;" onclick="genPDF('${s[0]}','Weekly Topper - ${dept}')">CERT</button>
-                    </div>`;
-                });
-                html += `</div>`;
-            }
-
-            html += `<h2 style="color:var(--ruva); text-align:center; margin-top:35px;">ANNUAL HOUSE RANKING</h2>`;
-            d.houseRank.forEach((r, i) => html += `<div class="stat-card" style="border-left-color:var(--ruva)"><b>ANNUAL ${labels[i].split(' ')[1]}:</b> ${r[0]} (${r[1]} pts)</div>`);
-
-            html += `<h3 style="color:var(--thomas); margin-top:25px;">ANNUAL TOP 3 (DEPT)</h3>`;
-            for (let dept in d.annualDeptRankings) {
-                html += `<div class="glass"><b>${dept}</b>`;
-                d.annualDeptRankings[dept].forEach((s, i) => {
-                    html += `<div style="display:flex; justify-content:space-between; margin-top:8px;">
-                        <span>${i+1}. ${s[0]} (${s[1]})</span>
-                        <button style="color:var(--thomas); background:none; border:1px solid; border-radius:4px; padding:2px 5px;" onclick="genPDF('${s[0]}','${i+1}nd Place Annual - ${dept}')">CERT</button>
-                    </div>`;
-                });
-                html += `</div>`;
-            }
-
-            html += `<h3 style="color:var(--savio); margin-top:25px;">STAR TEACHERS</h3>`;
-            d.starTeachers.forEach(t => html += `<div class="stat-card" style="border-left-color:var(--savio)">${t[0]} (${t[1]} Logs) <button style="float:right;" onclick="genPDF('${t[0]}','Star Teacher of the Week')">CERT</button></div>`);
-            
-            document.getElementById('admin-data').innerHTML = html;
-        }
-
-        async function genPDF(n, a) {
-            document.getElementById('pdf-n').innerText = n;
-            document.getElementById('pdf-a').innerText = a;
-            const canvas = await html2canvas(document.getElementById('cert-template'), {scale:3});
-            const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
-            pdf.save(n + ".pdf");
-        }
-
-        function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(()=>t.style.display='none', 2000); }
-    </script>
+    function showToast(m) { 
+      const t = document.getElementById('toast'); 
+      t.innerText = m; t.style.display = 'block'; 
+      setTimeout(() => t.style.display='none', 2500); 
+    }
+  </script>
 </body>
 </html>
