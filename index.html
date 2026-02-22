@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>DB G.O.A.T.S | FINAL</title>
+  <title>DB G.O.A.T.S | LOCKED</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -11,118 +11,118 @@
   <script src="https://unpkg.com/html5-qrcode"></script>
   <style>
     :root { --bosco: #ff0055; --savio: #00d4ff; --ruva: #ffcc00; --thomas: #00ff88; --neon: #fbff00; }
-    body { font-family: 'Poppins', sans-serif; margin: 0; background: #000; background-size: cover; color: white; }
-    .glass { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin: 10px; }
-    .header { display: flex; flex-direction: column; align-items: center; padding: 15px; border-bottom: 2px solid var(--savio); background: #000; position: sticky; top: 0; z-index: 1000; }
-    .logo-img { height: 50px; } .founder-img { height: 65px; width: 65px; border-radius: 50%; border: 2px solid var(--neon); object-fit: cover; }
-    input, select { width: 100%; padding: 15px; margin: 10px 0; background: #111; color: white; border: 1px solid #333; border-radius: 12px; }
-    .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-    .house-btn { padding: 30px 10px; border-radius: 15px; border: none; font-weight: 900; color: #000; cursor: pointer; }
-    .btn-main { width: 100%; padding: 15px; border-radius: 12px; background: var(--neon); color: black; font-weight: 900; border: none; }
-    .type-btn { flex: 1; padding: 15px; border-radius: 12px; font-weight: 900; cursor: pointer; border: 3px solid transparent; }
-    .stat-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 12px; border-left: 5px solid var(--neon); }
-    .rank-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .btn-cert { background: transparent; border: 1px solid var(--neon); color: var(--neon); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; }
-    #reader { width: 100%; border-radius: 15px; overflow:hidden; display: none; margin: 10px 0; border: 2px solid var(--neon); }
-    #cert-template { width: 1122px; height: 794px; background: white; color: black; position: absolute; left: -9999px; padding: 60px; text-align: center; border: 25px double #8e6d10; box-sizing: border-box; }
-    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--neon); color: black; padding: 15px 30px; border-radius: 50px; display: none; z-index: 5000; font-weight: 900; }
+    body { font-family: 'Poppins', sans-serif; margin: 0; background: #000; color: white; overflow-x: hidden; }
+    .glass { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); border-radius: 20px; padding: 20px; margin: 10px; border: 1px solid rgba(255,255,255,0.1); }
+    .header { display: flex; flex-direction: column; align-items: center; padding: 10px; border-bottom: 2px solid var(--savio); background: #000; position: sticky; top:0; z-index:100; }
+    .logo-img { height: 45px; } .founder-img { height: 60px; width: 60px; border-radius: 50%; border: 2px solid var(--neon); }
+    input, select, button { font-size: 16px; } 
+    .house-btn { padding: 25px 5px; border-radius: 12px; font-weight: 900; border: none; cursor: pointer; }
+    .stat-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid var(--neon); }
+    .rank-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    
+    /* CERTIFICATE LOCKED MARGINS */
+    #cert-template { 
+      width: 1122px; height: 794px; background: white; color: black; position: absolute; left: -9999px; 
+      padding: 60px; border: 30px double #8e6d10; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .cert-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .cert-body { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+    .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; padding: 0 40px 20px 40px; box-sizing: border-box; }
+    .sig-area { text-align: center; width: 220px; }
+    #cert-sig { height: 70px; max-width: 180px; object-fit: contain; margin-bottom: 5px; }
   </style>
 </head>
 <body onload="initApp()">
-  <div id="toast"></div>
+  <div id="toast" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--neon); color:#000; padding:12px 25px; border-radius:30px; display:none; z-index:999; font-weight:900;"></div>
 
   <div class="header">
-    <div style="display:flex; gap:20px; align-items:center;"><img id="main-logo" class="logo-img"><img id="main-founder" class="founder-img"></div>
-    <div style="font-weight:900; font-size:15px; margin-top:10px; text-align:center;">DON BOSCO POLYTECHNIC COLLEGE<br><span style="color:var(--neon); font-size:11px;">G.O.A.T.S MANAGEMENT</span></div>
+    <div style="display:flex; gap:15px; align-items:center;"><img id="main-logo" class="logo-img"><img id="main-founder" class="founder-img"></div>
+    <div style="font-weight:900; font-size:14px; margin-top:5px; text-align:center;">DON BOSCO POLYTECHNIC COLLEGE</div>
   </div>
 
-  <div id="login-view" class="glass" style="max-width:400px; margin: 40px auto;">
-    <select id="user-select"><option disabled selected>Loading Departments...</option></select>
-    <input type="password" id="pass-input" placeholder="Enter Password">
-    <button class="btn-main" onclick="login()">LOGIN</button>
+  <div id="login-view" class="glass" style="max-width:380px; margin: 40px auto;">
+    <select id="user-select"><option disabled selected>Loading...</option></select>
+    <input type="password" id="pass-input" placeholder="Password">
+    <button onclick="login()" style="width:100%; padding:15px; background:var(--neon); border:none; border-radius:10px; font-weight:900;">LOGIN</button>
   </div>
 
-  <div id="teacher-view" style="display:none; max-width:600px; margin: auto;" class="glass">
-    <div style="text-align:center; color:var(--neon); font-weight:900; margin-bottom:15px;">DEPT: <span id="active-dept-label">---</span></div>
-    
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:20px;">
-      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--bosco)">BOSCO<br><b id="s-Bosco" style="font-size:18px;">0</b></div>
-      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--savio)">SAVIO<br><b id="s-Savio" style="font-size:18px;">0</b></div>
-      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--ruva)">RUVA<br><b id="s-Ruva" style="font-size:18px;">0</b></div>
-      <div style="text-align:center; font-size:11px; background:#111; padding:10px; border-radius:12px; border-top:4px solid var(--thomas)">THOMAS<br><b id="s-Thomas" style="font-size:18px;">0</b></div>
+  <div id="teacher-view" style="display:none; max-width:550px; margin: auto;" class="glass">
+    <div id="active-dept-label" style="text-align:center; color:var(--neon); font-weight:900; margin-bottom:10px;"></div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-bottom:15px; text-align:center; font-size:12px;">
+      <div style="background:#111; padding:8px; border-radius:10px; border-top:3px solid var(--bosco)">BOSCO<br><b id="s-Bosco">0</b></div>
+      <div style="background:#111; padding:8px; border-radius:10px; border-top:3px solid var(--savio)">SAVIO<br><b id="s-Savio">0</b></div>
+      <div style="background:#111; padding:8px; border-radius:10px; border-top:3px solid var(--ruva)">RUVA<br><b id="s-Ruva">0</b></div>
+      <div style="background:#111; padding:8px; border-radius:10px; border-top:3px solid var(--thomas)">THOMAS<br><b id="s-Thomas">0</b></div>
     </div>
-
-    <div style="display:flex; gap:15px; margin-bottom:20px;">
-      <button class="type-btn" id="btn-neg" onclick="setMode('Negative')" style="background:#ff416c; color:white;">-5</button>
-      <button class="type-btn" id="btn-pos" onclick="setMode('Positive')" style="background:#00b09b; color:white;">+10</button>
+    <div style="display:flex; gap:10px; margin-bottom:15px;">
+      <button onclick="setMode('Negative')" id="btn-neg" style="flex:1; padding:15px; background:#ff416c; color:white; border-radius:10px; border:3px solid transparent; font-weight:900;">-5</button>
+      <button onclick="setMode('Positive')" id="btn-pos" style="flex:1; padding:15px; background:#00b09b; color:white; border-radius:10px; border:3px solid transparent; font-weight:900;">+10</button>
     </div>
-
-    <div class="house-grid">
-      <button class="house-btn" style="background:var(--bosco)" onclick="processEntry('HOUSE_WINNER', 'Bosco')">BOSCO</button>
-      <button class="house-btn" style="background:var(--savio)" onclick="processEntry('HOUSE_WINNER', 'Savio')">SAVIO</button>
-      <button class="house-btn" style="background:var(--ruva)" onclick="processEntry('HOUSE_WINNER', 'Ruva')">RUVA</button>
-      <button class="house-btn" style="background:var(--thomas)" onclick="processEntry('HOUSE_WINNER', 'Thomas')">THOMAS</button>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:15px;">
+      <button class="house-btn" style="background:var(--bosco)" onclick="processEntry('HOUSE','Bosco')">BOSCO</button>
+      <button class="house-btn" style="background:var(--savio)" onclick="processEntry('HOUSE','Savio')">SAVIO</button>
+      <button class="house-btn" style="background:var(--ruva)" onclick="processEntry('HOUSE','Ruva')">RUVA</button>
+      <button class="house-btn" style="background:var(--thomas)" onclick="processEntry('HOUSE','Thomas')">THOMAS</button>
     </div>
-
-    <button id="cam-btn" onclick="toggleCamera()" style="background:var(--neon); border:none; padding:18px; border-radius:50px; font-weight:900; width:100%; margin-bottom:15px;">📷 SCAN QR (NAME|DEPT|HOUSE)</button>
-    <div id="reader"></div>
-
-    <input type="text" id="m-student" placeholder="Manual Name">
-    <select id="m-house"><option disabled selected>Select House</option><option>Bosco</option><option>Savio</option><option>Ruva</option><option>Thomas</option></select>
-    <button onclick="submitManual()" style="width:100%; background:#333; color:white; border:none; padding:12px; border-radius:10px;">SUBMIT MANUAL</button>
-
-    <input type="text" id="t-name" placeholder="Teacher Name" style="margin-top:20px;">
+    <button onclick="toggleCamera()" id="cam-btn" style="width:100%; padding:18px; background:var(--neon); border:none; border-radius:50px; font-weight:900; margin-bottom:15px;">📷 SCAN STUDENT (NAME|DEPT|HOUSE)</button>
+    <div id="reader" style="width:100%; border-radius:15px; overflow:hidden; display:none; border:2px solid var(--neon);"></div>
+    <input type="text" id="t-name" placeholder="Teacher Name">
     <select id="p-cat">
-      <option>Quiz/Program</option><option>YouTube Contribution</option><option>Assembly Contribution</option>
-      <option>Extra Activities</option><option>Discipline</option><option>Academics</option><option>Sports</option>
+      <option>Quiz/Program</option><option>YouTube Contribution</option><option>Assembly</option><option>Discipline</option><option>Academics</option><option>Sports</option>
     </select>
-    <button class="btn-main" style="background:transparent; border:1px solid #444; color:white; margin-top:20px;" onclick="location.reload()">LOGOUT</button>
+    <button onclick="location.reload()" style="width:100%; background:none; color:#777; border:none; margin-top:15px;">Logout</button>
   </div>
 
-  <div id="admin-view" style="display:none; max-width:850px; margin: auto;" class="glass">
+  <div id="admin-view" style="display:none; max-width:800px; margin: auto;" class="glass">
     <div id="admin-content"></div>
-    <button class="btn-main" onclick="location.reload()" style="margin-top:20px;">LOGOUT ADMIN</button>
+    <button onclick="location.reload()" style="width:100%; padding:15px; background:var(--neon); border:none; border-radius:10px; font-weight:900; margin-top:20px;">LOGOUT ADMIN</button>
   </div>
 
   <div id="cert-template">
-    <div style="display:flex; justify-content:space-between; align-items:center;"><img id="cert-logo" style="height:100px;"><img id="cert-founder" style="height:100px; width:100px; border-radius:50%;"></div>
-    <h1 style="font-size:40px; margin:30px 0 0 0;">DON BOSCO POLYTECHNIC COLLEGE</h1>
-    <h2 style="font-family:'Great Vibes', cursive; font-size:65px; color:#8e6d10; margin:10px 0;">Certificate of Achievement</h2>
-    <p style="font-size:20px; margin:15px 0;">This is to certify that</p>
-    <h2 id="pdf-name" style="font-size:48px; text-decoration:underline;"></h2>
-    <p style="font-size:20px;">has been recognized for excellence as</p>
-    <h3 id="pdf-award" style="font-size:30px; color:#8e6d10; margin:10px 0;"></h3>
-    <div style="display:flex; justify-content:space-between; margin-top:80px; padding: 0 80px;">
-      <div style="border-top:2px solid #333; width:200px; padding-top:10px;"><b>AUTHORIZED SIGN</b></div>
-      <div style="text-align:center;">
-        <img id="cert-sig" style="height:60px;"><br>
-        <div style="border-top:2px solid #333; width:200px; padding-top:10px;"><b>PRINCIPAL</b></div>
+    <div class="cert-header">
+      <img id="cert-logo" style="height:110px;">
+      <img id="cert-founder" style="height:120px; width:120px; border-radius:50%; border:4px solid #8e6d10;">
+    </div>
+    <div class="cert-body">
+      <h1 style="font-size:42px; margin:0; color:#1a1a1a;">DON BOSCO POLYTECHNIC COLLEGE</h1>
+      <h2 style="font-family:'Great Vibes', cursive; font-size:75px; color:#8e6d10; margin:10px 0;">Certificate of Achievement</h2>
+      <p style="font-size:24px; margin:10px 0;">This is to certify that</p>
+      <h2 id="pdf-name" style="font-size:52px; text-decoration:underline; font-weight:900; margin:5px 0;"></h2>
+      <p style="font-size:22px; margin:5px 0;">from <b id="pdf-dept"></b> Department (<span id="pdf-house"></span> House)</p>
+      <p style="font-size:22px;">is recognized for</p>
+      <h3 id="pdf-award" style="font-size:35px; color:#8e6d10; margin:10px 0;"></h3>
+    </div>
+    <div class="cert-footer">
+      <div class="sig-area"><div style="border-top:2px solid #333; padding-top:10px;"><b>AUTHORIZED SIGN</b></div></div>
+      <div class="sig-area">
+        <img id="cert-sig">
+        <div style="border-top:2px solid #333; padding-top:10px;"><b>PRINCIPAL</b></div>
       </div>
     </div>
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzgcCQ933JTfcTh04DLVvE0JFeo6F4BnfkJ8ysQ4Qkh9e31T5YFNOjet2k1xk7yWOh8/exec"; 
-    let html5QrCode = null, scanActive = false, currentMode = "Positive", currentDept = "";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzsytLpWSbATsxT8iTqoUeeRNCjGvseqPZwCQ61ISA/dev"; 
+    let html5QrCode = null, scanActive = false, currentMode = "Positive", currentDept = "", imgs = {};
     let scores = { Bosco:0, Savio:0, Ruva:0, Thomas:0 };
 
-    async function callAPI(data) {
-      try { const r = await fetch(API_URL, { method: "POST", body: JSON.stringify(data) }); return await r.json(); } catch (e) { return {success: false}; }
+    async function callAPI(d) {
+      const r = await fetch(API_URL, { method: "POST", body: JSON.stringify(d) });
+      return await r.json();
     }
 
     async function initApp() {
-      const imgs = await callAPI({action: "getImages"});
-      if(imgs.bg) document.body.style.backgroundImage = `url('${imgs.bg}')`;
+      imgs = await callAPI({action: "getImages"});
       document.getElementById('main-logo').src = imgs.logo;
       document.getElementById('main-founder').src = imgs.founder;
       document.getElementById('cert-logo').src = imgs.logo;
       document.getElementById('cert-founder').src = imgs.founder;
-      document.getElementById('cert-sig').src = imgs.signature;
+      document.getElementById('cert-sig').src = imgs.sig;
 
       const list = await callAPI({action: "getDeptList"});
-      const s = document.getElementById('user-select'); 
-      s.innerHTML = '<option disabled selected>Select Department</option>';
-      if(Array.isArray(list)) list.forEach(d => s.add(new Option(d, d)));
+      const s = document.getElementById('user-select');
+      s.innerHTML = '<option disabled selected>Select Dept</option>';
+      list.forEach(d => s.add(new Option(d, d)));
     }
 
     async function login() {
@@ -130,15 +130,15 @@
       const r = await callAPI({action: "authenticate", user: u, pass: p});
       if(r.success) {
         document.getElementById('login-view').style.display='none';
-        if(r.role === 'Admin') { document.getElementById('admin-view').style.display='block'; loadAdmin(); } 
-        else { document.getElementById('teacher-view').style.display='block'; currentDept = r.dept; document.getElementById('active-dept-label').innerText = r.dept; setMode('Positive'); }
-      } else alert("Access Denied");
+        if(r.role === 'Admin') { document.getElementById('admin-view').style.display='block'; loadAdmin(); }
+        else { document.getElementById('teacher-view').style.display='block'; currentDept = r.dept; document.getElementById('active-dept-label').innerText = "DEPARTMENT: " + r.dept; setMode('Positive'); }
+      } else alert("Invalid Login");
     }
 
-    function setMode(m) {
-      currentMode = m;
-      document.getElementById('btn-pos').style.borderColor = (m === 'Positive') ? 'var(--neon)' : 'transparent';
-      document.getElementById('btn-neg').style.borderColor = (m === 'Negative') ? 'var(--neon)' : 'transparent';
+    function setMode(m) { 
+      currentMode = m; 
+      document.getElementById('btn-pos').style.borderColor = m==='Positive'?'var(--neon)':'transparent';
+      document.getElementById('btn-neg').style.borderColor = m==='Negative'?'var(--neon)':'transparent';
     }
 
     async function toggleCamera() {
@@ -146,74 +146,69 @@
         document.getElementById('reader').style.display = 'block';
         html5QrCode = new Html5Qrcode("reader");
         await html5QrCode.start({ facingMode: "environment" }, { fps: 15, qrbox: 250 }, (t) => {
-          const parts = t.split('|'); // Parser locked to: student name|department|house
-          if(parts.length >= 3) { processEntry(parts[0].trim(), parts[2].trim(), parts[1].trim()); stopCam(); }
+          const p = t.split('|'); 
+          if(p.length >= 3) { processEntry(p[0].trim(), p[2].trim(), p[1].trim()); stopCam(); }
         });
         scanActive = true;
       } else { stopCam(); }
     }
 
-    async function stopCam() { if (html5QrCode) await html5QrCode.stop(); document.getElementById('reader').style.display = 'none'; scanActive = false; }
+    function stopCam() { if(html5QrCode) html5QrCode.stop(); document.getElementById('reader').style.display='none'; scanActive=false; }
 
-    function submitManual() {
-      const n = document.getElementById('m-student').value, h = document.getElementById('m-house').value;
-      if(!n || h === "Select House") return alert("Fill Name/House");
-      processEntry(n, h); document.getElementById('m-student').value = "";
-    }
-
-    async function processEntry(sName, house, sDept = null) {
-      const tName = document.getElementById('t-name').value; 
-      if(!tName) return alert("Teacher Name Required");
+    async function processEntry(name, house, dept) {
+      const t = document.getElementById('t-name').value;
+      if(!t) return alert("Enter Teacher Name");
       const h = house.charAt(0).toUpperCase() + house.slice(1).toLowerCase();
-      const pts = (currentMode === 'Positive') ? 10 : -5;
-      
+      const pts = currentMode==='Positive'?10:-5;
       if(scores.hasOwnProperty(h)) {
-        scores[h] += pts; document.getElementById('s-' + h).innerText = scores[h];
-        showToast(`${sName} (${pts})`);
-        if(pts > 0) confetti({ particleCount: 50, spread: 70, origin: { y: 0.6 } });
-        await callAPI({action: "submitPoint", data: { dept: currentDept, studentDept: sDept, studentName: sName, teacherName: tName, category: document.getElementById('p-cat').value, house: h, type: currentMode }});
+        scores[h] += pts; document.getElementById('s-'+h).innerText = scores[h];
+        if(pts>0) confetti({ particleCount: 40 });
+        showToast(name + " logged!");
+        await callAPI({action:"submitPoint", data:{dept:currentDept, studentDept:dept, studentName:name, house:h, category:document.getElementById('p-cat').value, teacherName:t, type:currentMode}});
       }
     }
 
     async function loadAdmin() {
-      const d = await callAPI({action: "getAdminData"});
+      const d = await callAPI({action:"getAdminData"});
       const yh = d.yearlyHouses;
-      let h = `<h2 style="color:var(--neon); text-align:center;">ADMIN DASHBOARD</h2>
-        <h4 style="color:var(--savio);">🏆 ANNUAL HOUSE STANDINGS</h4>
+      document.getElementById('admin-content').innerHTML = `
+        <h4 style="color:var(--neon);">🏆 ANNUAL HOUSE STANDINGS</h4>
         <div class="stat-card">
-          <div class="rank-row" style="color:var(--neon);"><span>🥇 WINNER</span><b>${yh[0] ? yh[0][0] : '-'} (${yh[0] ? yh[0][1] : 0})</b></div>
-          <div class="rank-row"><span>🥈 RUNNER</span><b>${yh[1] ? yh[1][0] : '-'} (${yh[1] ? yh[1][1] : 0})</b></div>
-          <div class="rank-row"><span>🥉 2ND RUNNER</span><b>${yh[2] ? yh[2][0] : '-'} (${yh[2] ? yh[2][1] : 0})</b></div>
+          <div class="rank-row"><span>🥇 WINNER</span><b>${yh[0]?yh[0][0]:'-'}</b></div>
+          <div class="rank-row"><span>🥈 RUNNER</span><b>${yh[1]?yh[1][0]:'-'}</b></div>
+          <div class="rank-row"><span>🥉 2ND RUNNER</span><b>${yh[2]?yh[2][0]:'-'}</b></div>
         </div>
-        <h4 style="color:var(--neon);">📅 WEEKLY HOUSE STANDINGS</h4>
         <div class="stat-card">
-          ${d.weeklyHouses.map((hs, i) => `<div class="rank-row"><span>${i+1}. ${hs[0]}</span><b>${hs[1]} PTS</b></div>`).join('')}
+          <p style="color:var(--savio); margin:0;">🚀 MOST ACTIVE DEPARTMENT</p>
+          <h3 style="margin:5px 0;">${d.topActiveDept}</h3>
+          <small>Highest unique student participation</small>
         </div>
-        <h4 style="color:var(--savio);">🎖️ WEEKLY DEPT TOPPERS</h4>
+        <h4 style="color:var(--savio);">🎖️ WEEKLY TOPPERS</h4>
         <div class="stat-card">
-          ${d.weeklyWinners.map(w => `<div style="margin-bottom:10px;"><p style="color:var(--neon); font-size:12px; margin:0;">${w.dept}</p>${w.toppers.map(t => `<div class="rank-row"><span>${t[0]}</span><button class="btn-cert" onclick="genPDF('${t[0]}','Weekly Topper (${w.dept})')">CERT</button></div>`).join('')}</div>`).join('')}
+          ${d.weeklyWinners.map(w => `
+            <div style="margin-bottom:8px; border-bottom:1px solid #333;">
+              <small>${w.dept}</small>
+              ${w.toppers.map(t => `<div class="rank-row"><span>${t[0]}</span><button class="btn-cert" onclick="genPDF('${t[0]}','Weekly Topper','${w.dept}','-')">CERT</button></div>`).join('')}
+            </div>
+          `).join('')}
         </div>
-        <h4 style="color:var(--ruva);">⭐ STAR TEACHERS</h4>
-        <div class="stat-card">
-          ${d.starTeachers.map(t => `<div class="rank-row"><span>${t[0]}</span><button class="btn-cert" onclick="genPDF('${t[0]}','Star Teacher of the Week')">CERT</button></div>`).join('')}
-        </div>
-        <h4 style="color:white;">🎓 YEAR-END DEPT TOP 3</h4>
-        <div class="stat-card">
-          ${d.yearEndToppers.map(w => `<div style="margin-bottom:10px;"><p style="color:var(--savio); font-size:12px; margin:0;">${w.dept}</p>${w.toppers.map((t,i) => `<div class="rank-row" style="font-size:13px;"><span>${i+1}. ${t[0]}</span><b>${t[1]} PTS</b></div>`).join('')}</div>`).join('')}
-        </div>`;
-      document.getElementById('admin-content').innerHTML = h;
+      `;
     }
 
-    async function genPDF(n, a) {
-      document.getElementById('pdf-name').innerText = n.toUpperCase(); 
-      document.getElementById('pdf-award').innerText = a;
-      const canvas = await html2canvas(document.getElementById('cert-template'), { scale: 2, useCORS: true });
+    async function genPDF(name, award, dept, house) {
+      showToast("Generating...");
+      document.getElementById('pdf-name').innerText = name.toUpperCase();
+      document.getElementById('pdf-award').innerText = award;
+      document.getElementById('pdf-dept').innerText = dept;
+      document.getElementById('pdf-house').innerText = house;
+      
+      const canvas = await html2canvas(document.getElementById('cert-template'), {scale:2, useCORS:true});
       const pdf = new jspdf.jsPDF('l', 'mm', 'a4');
       pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 297, 210);
-      pdf.save(`DB_Award_${n}.pdf`);
+      pdf.save("DB_Award_"+name+".pdf");
     }
 
-    function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.style.display = 'block'; setTimeout(() => t.style.display='none', 2500); }
+    function showToast(m) { const t=document.getElementById('toast'); t.innerText=m; t.style.display='block'; setTimeout(()=>t.style.display='none',2000); }
   </script>
 </body>
 </html>
