@@ -1,6 +1,7 @@
 const CACHE_NAME = 'db-goats-v1';
 const ASSETS = [
-  'index.html',
+  '/Ultimate-goats/index.html',
+  '/Ultimate-goats/manifest.json',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Great+Vibes&display=swap'
 ];
 
